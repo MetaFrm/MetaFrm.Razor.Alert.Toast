@@ -1,0 +1,74 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>MetaFrm.Razor.Alert</RootNamespace>
+    <AssemblyName>MetaFrm.Razor.Alert.Toast</AssemblyName>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>MetaFrm.Razor.Alert.Toast.net6.0</PackageId>
+    <Version>6.0.0</Version>
+    <Authors>dsun</Authors>
+    <Company>Meta Framework</Company>
+    <Copyright>Copyright 2022. dsun all rights reserved.</Copyright>
+    <PackageProjectUrl>https://github.com/dsuny/MetaFrm.Razor.Alert.Toast</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/dsuny/MetaFrm.Razor.Alert.Toast</RepositoryUrl>
+    <PackageTags>meta;framework;dotnet;maui;</PackageTags>
+	
+	<SourceRevisionId>build$([System.DateTime]::UtcNow.ToString("yyyy-MM-ddTHH:mm:ss:fffZ"))</SourceRevisionId>
+	
+	<ApplicationIcon>icon.ico</ApplicationIcon>
+	
+	<Title>Meta Framework Razor Alert Toast</Title>
+	
+	<Product>Meta Framework Razor Alert Toast</Product>
+	
+	<Description>Meta Framework
+(Multi platform &amp; Meta management)</Description>
+	
+	<PackageIcon>icon.png</PackageIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\**" />
+    <Content Remove="wwwroot\**" />
+    <EmbeddedResource Remove="wwwroot\**" />
+    <None Remove="wwwroot\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="ExampleJsInterop.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Toast.razor.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\src\Toast.razor.cs" Link="Toast.razor.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="icon.ico" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MetaFrm.Core.net6.0" Version="6.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

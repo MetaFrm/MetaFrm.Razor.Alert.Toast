@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>MetaFrm.Razor.Alert</RootNamespace>
+    <AssemblyName>MetaFrm.Razor.Alert.Toast</AssemblyName>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <PackageId>MetaFrm.Razor.Alert.Toast.net5.0</PackageId>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Version>5.0.0</Version>
+    <Authors>dsun</Authors>
+    <Company>MetaFrm</Company>
+    <Copyright>Copyright 2022. DSUN all rights reserved.</Copyright>
+    <PackageProjectUrl>https://github.com/dsuny/MetaFrm.Razor.Alert.Toast</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/dsuny/MetaFrm.Razor.Alert.Toast</RepositoryUrl>
+    <PackageTags>meta;framework;dotnet;</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\src\Toast.razor.cs" Link="Toast.razor.cs" />
+  </ItemGroup>
+
+  
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.17" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\MetaFrm.Core\MetaFrm.Core(net5.0)\MetaFrm.Core(net5.0).csproj" />
+  </ItemGroup>
+
+</Project>

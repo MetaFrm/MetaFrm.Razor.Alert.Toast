@@ -1,0 +1,35 @@
+﻿@using Microsoft.AspNetCore.Components.Web
+
+@if (ToastMessage != null && ToastMessage.IsVisible)
+{
+    @if (ToastMessage.Title.IsNullOrEmpty())
+    {
+        <div class="toast-container position-fixed bottom-0 end-0 p-3 opacity-75 fade">
+            <div id="toast-id" class="toast show rounded-2" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true">
+                <div class="toast-body pt-4">
+                    <button type="button" class="btn-close ms-2 mb-1 position-absolute top-0 end-0 mt-4 me-4" aria-label="Close" @onclick="(() => ToastMessage.Dismiss())">@*data-bs-dismiss="toast"*@
+                        <span aria-hidden="true"></span>
+                    </button>
+                    @ToastMessage.Text
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="toast-container position-fixed bottom-0 end-0 p-3 opacity-75 fade">
+            <div id="toast-id" class="toast show rounded-2" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true">
+                <div class="toast-header rounded-top-2">
+                    <strong class="me-auto text-truncate">@ToastMessage.Title</strong>
+                    <small class="text-nowrap">@ToastMessage.TimeSpanAgoString</small>
+                    <button type="button" class="btn-close ms-2 mb-1" aria-label="Close" @onclick="(() => ToastMessage.Dismiss())">@*data-bs-dismiss="toast"*@
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="toast-body rounded-bottom-2">
+                    @ToastMessage.Text
+                </div>
+            </div>
+        </div>
+    }
+}
