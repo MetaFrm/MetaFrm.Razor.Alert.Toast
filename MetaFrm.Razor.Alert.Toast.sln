@@ -15,7 +15,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{9EBBE48D-4F4A-4979-ADBD-7AC0D55B70A5}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\build.yml = .github\workflows\build.yml
-		.github\workflows\nuget.yml = .github\workflows\nuget.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "솔루션 항목", "솔루션 항목", "{6796A62A-D836-465B-B7A4-383F21C6DAC2}"
