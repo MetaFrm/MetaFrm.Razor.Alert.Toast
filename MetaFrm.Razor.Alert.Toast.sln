@@ -14,7 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{4745
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{9EBBE48D-4F4A-4979-ADBD-7AC0D55B70A5}"
 	ProjectSection(SolutionItems) = preProject
-		.github\workflows\build.yml = .github\workflows\build.yml
+		.github\workflows\build_6.0.yml = .github\workflows\build_6.0.yml
+		.github\workflows\build_7.0.yml = .github\workflows\build_7.0.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "솔루션 항목", "솔루션 항목", "{6796A62A-D836-465B-B7A4-383F21C6DAC2}"
@@ -23,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "솔루션 항목", "솔루�
 		license = license
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetaFrm.Razor.Alert.Toast(net7.0)", "MetaFrm.Razor.Alert.Toast(net7.0)\MetaFrm.Razor.Alert.Toast(net7.0).csproj", "{C2E80A26-B61F-49D1-8258-794C13160FE4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,6 +37,10 @@ Global
 		{995F144F-85B5-42D8-A1D3-6700A2803A0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{995F144F-85B5-42D8-A1D3-6700A2803A0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{995F144F-85B5-42D8-A1D3-6700A2803A0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2E80A26-B61F-49D1-8258-794C13160FE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2E80A26-B61F-49D1-8258-794C13160FE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2E80A26-B61F-49D1-8258-794C13160FE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2E80A26-B61F-49D1-8258-794C13160FE4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
