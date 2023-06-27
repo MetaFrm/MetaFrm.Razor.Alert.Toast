@@ -46,7 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MetaFrm.Core.net6.0" Version="6.0.0.47" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.18" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.19" />
   </ItemGroup>
   <ItemGroup>
     <None Update="icon.png">
