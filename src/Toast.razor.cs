@@ -8,13 +8,40 @@ namespace MetaFrm.Razor.Alert
     /// </summary>
     public partial class Toast
     {
+        private static bool IsLoadAttribute = false;
+        private static string? CssClassAppendStatic;
+
+        string? _CssClassAppend = null;
+
         private int runCount = 0;
+
+        /// <summary>
+        /// CssClassDiv
+        /// </summary>
+        [Parameter]
+        public string? CssClassAppend { get { return this._CssClassAppend ?? CssClassAppendStatic; } set { this._CssClassAppend = value; } }
 
         /// <summary>
         /// ToastMessage
         /// </summary>
         [Parameter]
         public MetaFrm.Alert.Toast? ToastMessage { get; set; }
+
+
+        #region Init
+        /// <summary>
+        /// FieldControl
+        /// </summary>
+        public Toast()
+        {
+            if (!IsLoadAttribute)
+            {
+                CssClassAppendStatic = this.GetAttribute(nameof(this.CssClassAppend));
+
+                IsLoadAttribute = true;
+            }
+        }
+        #endregion
 
         /// <summary>
         /// OnAfterRender
