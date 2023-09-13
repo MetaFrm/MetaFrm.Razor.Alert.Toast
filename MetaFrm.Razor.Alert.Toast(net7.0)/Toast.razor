@@ -2,12 +2,12 @@
 @using Microsoft.AspNetCore.Components.Web
 @inherits BaseComponent
 
-@if (this.ToastMessage != null && this.ToastMessage.IsVisible)
+@if (this.ToastMessage != null)
 {
     @if (this.ToastMessage.Title.IsNullOrEmpty())
     {
-        <div class="@($"toast-container position-fixed bottom-0 end-0 p-3 {this.CssClassAppend} fade")">
-            <div id="toast-id" class="toast show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true">
+        <div class="@($"toast-container position-fixed bottom-0 end-0 p-3 {this.CssClassAppend} fade{(this.ToastMessage.IsVisible ? " show" : "")}")">
+            <div id="toast-id" class="toast @(this.ToastMessage.IsVisible ? "show" : "")" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true">
                 <div class="toast-body pt-4">
                     <button type="button" class="btn-close ms-2 mb-1 position-absolute top-0 end-0 mt-4 me-4" aria-label="Close" @onclick="this.Close">@*data-bs-dismiss="toast"*@
                         <span aria-hidden="true"></span>
@@ -19,8 +19,8 @@
     }
     else
     {
-        <div class="@($"toast-container position-fixed bottom-0 end-0 p-3 {this.CssClassAppend} fade")">
-            <div id="toast-id" class="toast show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true">
+        <div class="@($"toast-container position-fixed bottom-0 end-0 p-3 {this.CssClassAppend} fade fade{(this.ToastMessage.IsVisible ? " show" : "")}")">
+            <div id="toast-id" class="toast @(this.ToastMessage.IsVisible ? "show" : "")" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true">
                 <div class="toast-header">
                     <strong class="me-auto text-truncate">@this.ToastMessage.Title</strong>
                     <small class="text-nowrap">@this.ToastMessage.TimeSpanAgoString</small>
