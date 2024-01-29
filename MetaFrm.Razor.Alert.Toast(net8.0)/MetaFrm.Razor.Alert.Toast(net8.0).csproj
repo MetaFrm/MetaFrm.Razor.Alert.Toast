@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>MetaFrm.Razor.Alert</RootNamespace>
     <AssemblyName>MetaFrm.Razor.Alert.Toast</AssemblyName>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <PackageId>MetaFrm.Razor.Alert.Toast.net6.0</PackageId>
-    <Version>6.0.1.13</Version>
+    <PackageId>MetaFrm.Razor.Alert.Toast.net8.0</PackageId>
+    <Version>8.0.1.13</Version>
     <Authors>dsun</Authors>
     <Company>Meta Framework</Company>
     <Copyright>Copyright 2024. dsun all rights reserved.</Copyright>
@@ -45,8 +45,8 @@
     <SupportedPlatform Include="browser" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MetaFrm.Core.net6.0" Version="6.0.1.13" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.26" />
+    <PackageReference Include="MetaFrm.Core.net8.0" Version="8.0.1.13" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.1" />
   </ItemGroup>
   <ItemGroup>
     <None Update="icon.png">
