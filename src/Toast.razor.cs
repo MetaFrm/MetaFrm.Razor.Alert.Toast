@@ -11,15 +11,14 @@ namespace MetaFrm.Razor.Alert
         private static bool IsLoadAttribute = false;
         private static string? CssClassAppendStatic;
 
-        string? _CssClassAppend = null;
-
         private int runCount = 0;
 
         /// <summary>
         /// CssClassDiv
         /// </summary>
         [Parameter]
-        public string? CssClassAppend { get { return this._CssClassAppend ?? CssClassAppendStatic; } set { this._CssClassAppend = value; } }
+        public string? CssClassAppend { get; set; }
+        private string? CssClassAppendOrStatic => this.CssClassAppend ?? CssClassAppendStatic;
 
         /// <summary>
         /// ToastMessage
