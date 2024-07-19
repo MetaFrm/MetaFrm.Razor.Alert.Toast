@@ -93,7 +93,7 @@ namespace MetaFrm.Razor.Alert
                     this.ToastMessage.Text = "";
                     this.ToastMessage.Title = "";
 
-                    this.InvokeStateHasChanged();
+                    this.InvokeAsync(this.StateHasChanged);
                 }
             }
             finally

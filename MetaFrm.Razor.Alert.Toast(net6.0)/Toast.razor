@@ -9,7 +9,8 @@
         <div class="@($"toast-container position-fixed bottom-0 end-0 p-3 {this.CssClassAppendOrStatic} fade{(this.ToastMessage.IsVisible ? " show" : "")}")">
             <div id="toast-id" class="toast @(this.ToastMessage.IsVisible ? "show" : "")" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true">
                 <div class="toast-body pt-4">
-                    <button type="button" class="btn-close ms-2 mb-1 position-absolute top-0 end-0 mt-4 me-4" aria-label="Close" @onclick="this.Close">@*data-bs-dismiss="toast"*@
+                    <button type="button" class="btn-close ms-2 mb-1 position-absolute top-0 end-0 mt-4 me-4" aria-label="Close" @onclick="this.Close">
+                        @*data-bs-dismiss="toast"*@
                         <span aria-hidden="true"></span>
                     </button>
                     @this.ToastMessage.Text
@@ -22,9 +23,10 @@
         <div class="@($"toast-container position-fixed bottom-0 end-0 p-3 {this.CssClassAppendOrStatic} fade{(this.ToastMessage.IsVisible ? " show" : "")}")">
             <div id="toast-id" class="toast @(this.ToastMessage.IsVisible ? "show" : "")" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true">
                 <div class="toast-header">
-                    <strong class="me-auto text-truncate">@this.ToastMessage.Title</strong>
+                    <strong class="me-auto text-truncate">@Localization[this.ToastMessage.Title ?? ""]</strong>
                     <small class="text-nowrap">@this.ToastMessage.TimeSpanAgoString</small>
-                    <button type="button" class="btn-close ms-2 mb-1" aria-label="Close" @onclick="this.Close">@*data-bs-dismiss="toast"*@
+                    <button type="button" class="btn-close ms-2 mb-1" aria-label="Close" @onclick="this.Close">
+                        @*data-bs-dismiss="toast"*@
                         <span aria-hidden="true"></span>
                     </button>
                 </div>
