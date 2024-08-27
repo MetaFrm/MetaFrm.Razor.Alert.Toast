@@ -13,7 +13,7 @@
                         @*data-bs-dismiss="toast"*@
                         <span aria-hidden="true"></span>
                     </button>
-                    @this.ToastMessage.Text
+                    @Localization[this.ToastMessage.Text ?? ""]
                 </div>
             </div>
         </div>
@@ -31,7 +31,7 @@
                     </button>
                 </div>
                 <div class="toast-body">
-                    @this.ToastMessage.Text
+                    @Localization[this.ToastMessage.Text ?? ""]
                 </div>
             </div>
         </div>
