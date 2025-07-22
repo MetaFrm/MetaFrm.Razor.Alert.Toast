@@ -2,36 +2,36 @@
 @using Microsoft.AspNetCore.Components.Web
 @inherits BaseComponent
 
-@if (this.ToastMessage != null)
+@if (this.CurrentToastMessage != null)
 {
-    @if (this.ToastMessage.Title.IsNullOrEmpty())
+    @if (this.CurrentToastMessage.Title.IsNullOrEmpty())
     {
-        <div class="@($"toast-container position-fixed bottom-0 end-0 p-3 {this.CssClassAppendOrStatic} fade{(this.ToastMessage.IsVisible ? " show" : "")}")">
-            <div id="toast-id" class="toast @(this.ToastMessage.IsVisible ? "show" : "")" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true">
+        <div class="@($"toast-container position-fixed bottom-0 end-0 p-3 {this.CssClassAppendOrStatic} fade{(this.CurrentToastMessage.IsVisible ? " show" : "")}")">
+            <div id="toast-id" class="toast @(this.CurrentToastMessage.IsVisible ? "show" : "")" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true">
                 <div class="toast-body pt-4">
                     <button type="button" class="btn-close ms-2 mb-1 position-absolute top-0 end-0 mt-4 me-4" aria-label="Close" @onclick="this.Close">
                         @*data-bs-dismiss="toast"*@
                         <span aria-hidden="true"></span>
                     </button>
-                    @Localization[this.ToastMessage.Text ?? ""]
+                    @Localization[this.CurrentToastMessage.Text ?? ""]
                 </div>
             </div>
         </div>
     }
     else
     {
-        <div class="@($"toast-container position-fixed bottom-0 end-0 p-3 {this.CssClassAppendOrStatic} fade{(this.ToastMessage.IsVisible ? " show" : "")}")">
-            <div id="toast-id" class="toast @(this.ToastMessage.IsVisible ? "show" : "")" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true">
+        <div class="@($"toast-container position-fixed bottom-0 end-0 p-3 {this.CssClassAppendOrStatic} fade{(this.CurrentToastMessage.IsVisible ? " show" : "")}")">
+            <div id="toast-id" class="toast @(this.CurrentToastMessage.IsVisible ? "show" : "")" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true">
                 <div class="toast-header">
-                    <strong class="me-auto text-truncate">@Localization[this.ToastMessage.Title ?? ""]</strong>
-                    <small class="text-nowrap">@this.ToastMessage.TimeSpanAgoString</small>
+                    <strong class="me-auto text-truncate">@Localization[this.CurrentToastMessage.Title ?? ""]</strong>
+                    <small class="text-nowrap">@this.CurrentToastMessage.TimeSpanAgoString / @this.Queue.Count</small>
                     <button type="button" class="btn-close ms-2 mb-1" aria-label="Close" @onclick="this.Close">
                         @*data-bs-dismiss="toast"*@
                         <span aria-hidden="true"></span>
                     </button>
                 </div>
                 <div class="toast-body">
-                    @Localization[this.ToastMessage.Text ?? ""]
+                    @Localization[this.CurrentToastMessage.Text ?? ""]
                 </div>
             </div>
         </div>

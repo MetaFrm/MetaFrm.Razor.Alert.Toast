@@ -1,5 +1,6 @@
 ﻿using MetaFrm.Alert;
 using Microsoft.AspNetCore.Components;
+using System.Collections.Concurrent;
 
 namespace MetaFrm.Razor.Alert
 {
@@ -11,7 +12,7 @@ namespace MetaFrm.Razor.Alert
         private static bool IsLoadAttribute = false;
         private static string? CssClassAppendStatic;
 
-        private int runCount = 0;
+        private readonly ConcurrentQueue<MetaFrm.Alert.Toast> Queue = new();
 
         /// <summary>
         /// CssClassDiv
@@ -25,6 +26,8 @@ namespace MetaFrm.Razor.Alert
         /// </summary>
         [Parameter]
         public MetaFrm.Alert.Toast? ToastMessage { get; set; }
+
+        private MetaFrm.Alert.Toast? CurrentToastMessage { get; set; }
 
 
         #region Init
@@ -53,8 +56,30 @@ namespace MetaFrm.Razor.Alert
             if (firstRender)
             { }
 
-            if (this.ToastMessage != null && this.ToastMessage.IsVisible)
-                RunTimer();
+            if (this.CurrentToastMessage == null)
+                if (this.Queue.TryDequeue(out MetaFrm.Alert.Toast? toast) && toast != null)
+                {
+                    this.CurrentToastMessage = toast;
+                    this.RunTimer();
+
+                    this.InvokeAsync(this.StateHasChanged);
+                }
+        }
+
+        /// <summary>
+        /// SetParametersAsync
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public override async Task SetParametersAsync(ParameterView parameters)
+        {
+            if (parameters.TryGetValue<MetaFrm.Alert.Toast>(nameof(ToastMessage), out var value))
+            {
+                if (value != null)
+                    this.Queue.Enqueue(value);
+            }
+
+            await base.SetParametersAsync(parameters);
         }
 
         /// <summary>
@@ -62,24 +87,19 @@ namespace MetaFrm.Razor.Alert
         /// </summary>
         public void RunTimer()
         {
-            if (this.ToastMessage != null && this.ToastMessage.IsVisible)
+            if (this.CurrentToastMessage != null && this.CurrentToastMessage.IsVisible)
             {
                 try
                 {
                     Timer timer = new(new TimerCallback(TimerProc));
 
-                    if (this.ToastMessage.Duration == ToastDuration.Short)
+                    if (this.CurrentToastMessage.Duration == ToastDuration.Short)
                         timer.Change(3000, 0);
                     else
                         timer.Change(6000, 0);
                 }
                 catch (Exception)
                 {
-                    this.runCount--;
-                }
-                finally
-                {
-                    this.runCount++;
                 }
             }
         }
@@ -87,30 +107,28 @@ namespace MetaFrm.Razor.Alert
         {
             try
             {
-                if (this.ToastMessage != null && this.ToastMessage.IsVisible && this.runCount <= 1)
+                if (this.CurrentToastMessage != null && this.CurrentToastMessage.IsVisible)
                 {
-                    this.ToastMessage.IsVisible = false;
-                    this.ToastMessage.Text = "";
-                    this.ToastMessage.Title = "";
+                    if (this.Queue.TryDequeue(out MetaFrm.Alert.Toast? toast) && toast != null)
+                    {
+                        this.CurrentToastMessage = toast;
+                        this.RunTimer();
+                    }
+                    else
+                        this.CurrentToastMessage = null;
 
                     this.InvokeAsync(this.StateHasChanged);
                 }
             }
-            finally
+            catch (Exception)
             {
-                this.runCount--;
             }
         }
 
         private void Close()
         {
-            if (this.ToastMessage != null)
-            {
-                this.ToastMessage.IsVisible = false;
-                this.ToastMessage.Text = "";
-                this.ToastMessage.Title = "";
-                this.runCount = 0;
-            }
+            if (this.CurrentToastMessage != null)
+                this.CurrentToastMessage = null;
         }
     }
 }
