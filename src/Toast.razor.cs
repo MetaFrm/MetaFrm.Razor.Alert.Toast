@@ -11,7 +11,6 @@ namespace MetaFrm.Razor.Alert
     {
         private static bool IsLoadAttribute = false;
         private static string? CssClassAppendStatic;
-
         private readonly ConcurrentQueue<MetaFrm.Alert.Toast> Queue = new();
 
         /// <summary>
@@ -26,9 +25,36 @@ namespace MetaFrm.Razor.Alert
         /// </summary>
         [Parameter]
         public MetaFrm.Alert.Toast? ToastMessage { get; set; }
-
         private MetaFrm.Alert.Toast? CurrentToastMessage { get; set; }
+        private string? CurrentToastTimeSpanAgoString
+        {
+            get
+            {
+                if ( this.CurrentToastMessage == null)
+                    return null;
 
+                TimeSpan timeSpan = (DateTime)this.CurrentToastMessage.DateTimeNow - this.CurrentToastMessage.DateTime;
+
+                if (timeSpan.TotalSeconds < 60)
+                {
+                    return this.Localization["{0}초 전", timeSpan.Seconds];
+                }
+                else if (timeSpan.TotalMinutes < 60)
+                {
+                    return this.Localization["{0}분 {1}초 전", timeSpan.Minutes, timeSpan.Seconds];
+                }
+                else if (timeSpan.TotalHours < 24)
+                {
+                    return $"{timeSpan.Hours}시 {timeSpan.Minutes}분 ago";
+                }
+                else if (timeSpan.TotalDays < 30)
+                {
+                    return $"{timeSpan.Days}일 {timeSpan.Hours}시간 ago";
+                }
+                else
+                    return $"{this.CurrentToastMessage.DateTime:dd HH:mm:ss}";
+            }
+        }
 
         #region Init
         /// <summary>
@@ -56,11 +82,11 @@ namespace MetaFrm.Razor.Alert
             if (firstRender)
             { }
 
-            if (this.CurrentToastMessage == null)
+            if (this.CurrentToastMessage == null || (!this.CurrentToastMessage.IsVisible))
                 if (this.Queue.TryDequeue(out MetaFrm.Alert.Toast? toast) && toast != null)
                 {
                     this.CurrentToastMessage = toast;
-                    this.RunTimer();
+                    this.RunTimer(toast);
 
                     this.InvokeAsync(this.StateHasChanged);
                 }
@@ -76,7 +102,13 @@ namespace MetaFrm.Razor.Alert
             if (parameters.TryGetValue<MetaFrm.Alert.Toast>(nameof(ToastMessage), out var value))
             {
                 if (value != null)
-                    this.Queue.Enqueue(value);
+                {
+                    if (this.Queue.Count >= 128)
+                        this.Queue.TryDequeue(out MetaFrm.Alert.Toast? _);
+
+                    if (!this.Queue.Contains(value))
+                        this.Queue.Enqueue(value);
+                }
             }
 
             await base.SetParametersAsync(parameters);
@@ -85,18 +117,30 @@ namespace MetaFrm.Razor.Alert
         /// <summary>
         /// RunTimer
         /// </summary>
-        public void RunTimer()
+        public void RunTimer(MetaFrm.Alert.Toast? toast)
         {
-            if (this.CurrentToastMessage != null && this.CurrentToastMessage.IsVisible)
+            if (toast != null)
             {
                 try
                 {
-                    Timer timer = new(new TimerCallback(TimerProc));
+                    if (toast.Duration == ToastDuration.Short)
+                    {
+                        TimerToast timerToast = new()
+                        {
+                            Toast = toast,
+                        };
 
-                    if (this.CurrentToastMessage.Duration == ToastDuration.Short)
-                        timer.Change(3000, 0);
+                        timerToast.Timer = new(new TimerCallback(TimerProc), timerToast, 1500, 0);
+                    }
                     else
-                        timer.Change(6000, 0);
+                    {
+                        TimerToast timerToast = new()
+                        {
+                            Toast = toast,
+                        };
+
+                        timerToast.Timer = new(new TimerCallback(TimerProc), timerToast, 3000, 0);
+                    }
                 }
                 catch (Exception)
                 {
@@ -105,30 +149,54 @@ namespace MetaFrm.Razor.Alert
         }
         private void TimerProc(object? state)
         {
-            try
+            if (state != null && state is TimerToast item && this.CurrentToastMessage != null && this.CurrentToastMessage.Equals(item.Toast))
             {
-                if (this.CurrentToastMessage != null && this.CurrentToastMessage.IsVisible)
+                try
                 {
+
                     if (this.Queue.TryDequeue(out MetaFrm.Alert.Toast? toast) && toast != null)
                     {
                         this.CurrentToastMessage = toast;
-                        this.RunTimer();
+                        this.RunTimer(toast);
                     }
                     else
-                        this.CurrentToastMessage = null;
+                    {
+                        if (item.Toast != null)
+                            item.Toast.IsVisible = false;
+                    }
 
                     this.InvokeAsync(this.StateHasChanged);
+
                 }
-            }
-            catch (Exception)
-            {
+                catch (Exception)
+                {
+                }
+                finally
+                {
+                    if (item.Timer != null)
+                        item.Timer.Dispose();
+                }
             }
         }
 
         private void Close()
         {
             if (this.CurrentToastMessage != null)
-                this.CurrentToastMessage = null;
+            {
+                if (this.Queue.TryDequeue(out MetaFrm.Alert.Toast? toast) && toast != null)
+                {
+                    this.CurrentToastMessage = toast;
+                    this.RunTimer(toast);
+                }
+                else
+                    this.CurrentToastMessage.IsVisible = false;
+            }
+        }
+
+        internal class TimerToast
+        {
+            public Timer? Timer { get; set; }
+            public MetaFrm.Alert.Toast? Toast { get; set; }
         }
     }
 }
