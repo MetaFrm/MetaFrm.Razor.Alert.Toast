@@ -1,4 +1,5 @@
-﻿using MetaFrm.Alert;
+﻿using MetaFrm.Ads;
+using MetaFrm.Alert;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Concurrent;
 
@@ -53,6 +54,24 @@ namespace MetaFrm.Razor.Alert
                 }
                 else
                     return $"{this.CurrentToastMessage.DateTime:dd HH:mm:ss}";
+            }
+        }
+
+        [Inject]
+        private Maui.Ads.IAds? Ads { get; set; }
+
+        private string ToastContainerclass
+        {
+            get
+            {
+                if (this.Ads == null || this.Ads is DummyAds || this.Ads.BannerAdsId.IsNullOrEmpty())
+                {
+                    return "";
+                }
+                else
+                {
+                    return " pb-5 mb-2";
+                }
             }
         }
 
