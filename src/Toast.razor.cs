@@ -60,20 +60,7 @@ namespace MetaFrm.Razor.Alert
         [Inject]
         private Maui.Ads.IAds? Ads { get; set; }
 
-        private string ToastContainerclass
-        {
-            get
-            {
-                if (this.Ads == null || this.Ads is DummyAds || this.Ads.BannerAdsId.IsNullOrEmpty())
-                {
-                    return "";
-                }
-                else
-                {
-                    return " pb-5 mb-2";
-                }
-            }
-        }
+        private static string? AdsBannerClass { get; set; }
 
         #region Init
         /// <summary>
@@ -90,6 +77,21 @@ namespace MetaFrm.Razor.Alert
         }
         #endregion
 
+        /// <summary>
+        /// OnInitialized
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            if (AdsBannerClass == null)
+            {
+                if (this.Ads != null && this.Ads is not DummyAds && !this.Ads.BannerAdsId.IsNullOrEmpty())
+                    AdsBannerClass = this.GetAttribute(nameof(AdsBannerClass));
+                else
+                    AdsBannerClass = "";
+            }
+        }
         /// <summary>
         /// OnAfterRender
         /// </summary>
