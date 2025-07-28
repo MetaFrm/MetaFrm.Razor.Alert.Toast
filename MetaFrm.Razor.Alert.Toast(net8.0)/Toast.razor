@@ -6,7 +6,7 @@
 {
     @if (this.CurrentToastMessage.Title.IsNullOrEmpty())
     {
-        <div class="@($"toast-container position-fixed bottom-0 end-0 p-3{AdsBannerClass} {this.CssClassAppendOrStatic} fade{(this.CurrentToastMessage.IsVisible ? " show" : "")}")">
+        <div class="@($"toast-container position-fixed bottom-0 end-0 p-3 {AdsBannerClass} {this.CssClassAppendOrStatic} fade{(this.CurrentToastMessage.IsVisible ? " show" : "")}")">
             <div id="toast-id" class="toast @(this.CurrentToastMessage.IsVisible ? "show" : "")" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true">
                 <div class="toast-body pt-4">
                     <button type="button" class="btn-close ms-2 mb-1 position-absolute top-0 end-0 mt-4 me-4" aria-label="Close" @onclick="this.Close">
@@ -20,7 +20,7 @@
     }
     else
     {
-        <div class="@($"toast-container position-fixed bottom-0 end-0 p-3{AdsBannerClass} {this.CssClassAppendOrStatic} fade{(this.CurrentToastMessage.IsVisible ? " show" : "")}")">
+        <div class="@($"toast-container position-fixed bottom-0 end-0 p-3 {AdsBannerClass} {this.CssClassAppendOrStatic} fade{(this.CurrentToastMessage.IsVisible ? " show" : "")}")">
             <div id="toast-id" class="toast @(this.CurrentToastMessage.IsVisible ? "show" : "")" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true">
                 <div class="toast-header">
                     <strong class="me-auto text-truncate">@Localization[this.CurrentToastMessage.Title ?? ""]</strong>
