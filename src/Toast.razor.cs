@@ -86,7 +86,7 @@ namespace MetaFrm.Razor.Alert
 
             if (AdsBannerClass == null)
             {
-                if (this.Ads != null && this.Ads is not DummyAds && !this.Ads.BannerAdsId.IsNullOrEmpty())
+                if (this.Ads != null && this.Ads is not DummyAds && !string.IsNullOrEmpty(this.Ads.BannerAdsId))
                     AdsBannerClass = this.GetAttribute(nameof(AdsBannerClass));
                 else
                     AdsBannerClass = "";
