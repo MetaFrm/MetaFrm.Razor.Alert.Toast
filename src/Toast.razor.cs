@@ -182,8 +182,7 @@ namespace MetaFrm.Razor.Alert
                     }
                     else
                     {
-                        if (item.Toast != null)
-                            item.Toast.IsVisible = false;
+                        item.Toast?.IsVisible = false;
                     }
 
                     this.InvokeAsync(this.StateHasChanged);
@@ -194,8 +193,7 @@ namespace MetaFrm.Razor.Alert
                 }
                 finally
                 {
-                    if (item.Timer != null)
-                        item.Timer.Dispose();
+                    item.Timer?.Dispose();
                 }
             }
         }
