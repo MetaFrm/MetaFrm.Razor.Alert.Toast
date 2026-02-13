@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>MetaFrm.Razor.Alert</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
     <AssemblyName>MetaFrm.Razor.Alert.Toast</AssemblyName>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>MetaFrm.Razor.Alert.Toast.net10.0</PackageId>
-    <Version>10.0.1.20</Version>
+    <Version>10.0.3.0</Version>
     <Authors>dsun</Authors>
     <Company>Meta Framework</Company>
     <Copyright>Copyright 2026. dsun all rights reserved.</Copyright>
@@ -16,29 +16,17 @@
     <RepositoryUrl>https://github.com/MetaFrm/MetaFrm.Razor.Alert.Toast</RepositoryUrl>
     <PackageTags>meta;framework;dotnet;maui;</PackageTags>
     <SourceRevisionId>build$([System.DateTime]::UtcNow.ToString("yyyy-MM-ddTHH:mm:ss:fffZ"))</SourceRevisionId>
-    <ApplicationIcon>icon.ico</ApplicationIcon>
     <Title>Meta Framework Razor Alert Toast</Title>
-    <Product>Meta Framework Razor Alert Toast</Product>
     <Description>Meta Framework
 (Multi platform &amp; Meta management)</Description>
+    <Product>Meta Framework Razor Alert Toast</Product>
     <PackageIcon>icon.png</PackageIcon>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\readme.md" Pack="true" PackagePath="\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="wwwroot\**" />
-    <Content Remove="wwwroot\**" />
-    <EmbeddedResource Remove="wwwroot\**" />
-    <None Remove="wwwroot\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="ExampleJsInterop.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Toast.razor.css" />
-  </ItemGroup>
+  </ItemGroup>  
   <ItemGroup>
     <Compile Include="..\src\Toast.razor.cs" Link="Toast.razor.cs" />
   </ItemGroup>
@@ -49,8 +37,8 @@
     <SupportedPlatform Include="browser" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MetaFrm.Core.net10.0" Version="10.0.1.20" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.2" />
+    <PackageReference Include="MetaFrm.Core.net10.0" Version="10.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.3" />
   </ItemGroup>
   <ItemGroup>
     <None Include="icon.png">
